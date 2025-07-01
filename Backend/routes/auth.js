@@ -21,7 +21,7 @@ router.post(
     //if there are errors, return bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success: false, errors: errors.array() });
     }
     //check whether the email exists already
     try {
@@ -29,7 +29,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "Sorry a user with this email already exists" });
+          .json({ success: false, error: "Sorry a user with this email already exists" });
       }
 
       //salt creating for password
@@ -51,16 +51,15 @@ router.post(
       };
       //token banana for user
       const authtoken = jwt.sign(data, JWT_SECRET);
-      res.json({ authtoken });
-      res.json(user);
+      res.json({ success: true, authtoken });
     } catch (error) {
       //error catching
       console.error(error.message);
-      res.status(500).send("Some error occured");
+      res.status(500).send("Internal Server Error");
     }
   }
 );
-//Route 2:Authenticate a User using:POST "/api/auth/login". No login Required
+
 //Route 2: Authenticate a User using POST "/api/auth/login"
 router.post(
   "/login",
@@ -105,6 +104,7 @@ router.post(
     }
   }
 );
+
 //Route 3:Get loggedin User Details using:POST "/api/auth/getuser".Login required
 router.post("/getuser", fetchuser, async (req, res) => {
   try {
@@ -116,4 +116,5 @@ router.post("/getuser", fetchuser, async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
 module.exports = router;
