@@ -136,5 +136,13 @@ const NoteState = (props) => {
       console.error("Error editing note:", error);
     }
   };
+
+  // Return the Provider with value and children
+  return (
+    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
+      {props.children}
+    </NoteContext.Provider>
+  );
 };
+
 export default NoteState;
