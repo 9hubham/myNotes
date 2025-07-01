@@ -6,6 +6,12 @@ const NoteState = (props) => {
   const notesInitial = []
   const [notes, setNotes] = useState(notesInitial)
 
+
+   // Get auth token from localStorage
+  const getAuthToken = () => {
+    return localStorage.getItem('token');
+  }
+
   // Get all Notes
   const getNotes = async () => {
     // API Call 
@@ -24,7 +30,7 @@ const NoteState = (props) => {
   const addNote = async (title, description, tag) => {
     // TODO: API Call
     // API Call 
-    const response = await fetch(`${host}/api/notes/addnote`, {
+    const response = await fetch(`${host}/api/notes/addnotes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
