@@ -15,7 +15,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            Notes
+            myNotes
           </Link>
           <button
             className="navbar-toggler"
@@ -35,11 +35,13 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
+
+              {/* //About banana baaki karna hain */}
+              {/* <li className="nav-item">
                 <Link className={`nav-link ${location.pathname==="/about"? "active": ""}`} to="/about">
                   About
                 </Link>
-              </li>
+              </li> */}
             </ul>
             {!localStorage.getItem('token') ? (
               <div className="d-flex">
